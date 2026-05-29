@@ -1,0 +1,35 @@
+name: Bump BUILD date in sw.js
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '.github/**'
+      - '*.md'
+
+jobs:
+  bump-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update BUILD date in sw.js
+        run: |
+          TODAY=$(date -u +"%Y-%m-%d")
+          # Replace BUILD = 'YYYY-MM-DD' pattern
+          sed -i "s/BUILD\s*=\s*'[0-9-]*'/BUILD = '$TODAY'/g" sw.js
+          sed -i "s/BUILD\s*=\s*\"[0-9-]*\"/BUILD = \"$TODAY\"/g" sw.js
+          echo "BUILD date set to $TODAY"
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet && echo "No changes" && exit 0
+          git add sw.js
+          git commit -m "chore: bump BUILD to $(date -u +%Y-%m-%d) [skip ci]"
+          git push
