@@ -1,6 +1,6 @@
 # PDF Tools
 
-**A PDF reader, a document scanner and 36 PDF tools in one HTML file — no uploads, no server, no account.**
+**A PDF editor, a PDF reader, a document scanner and 37 PDF tools in one HTML file — no uploads, no server, no account.**
 
 Everything runs in your browser. Your files never leave your device.
 
@@ -9,6 +9,15 @@ Everything runs in your browser. Your files never leave your device.
 ---
 
 ## Highlights
+
+### ✏️ PDF Editor (Edit · Fill & Sign · Annotate · Pages)
+- **Fill forms right on the page** — text boxes, multi-line fields, checkboxes, radio buttons, drop-downs and signature fields. Values are saved into the real PDF form fields, with an option to flatten
+- **Signatures** — draw (smooth, pressure-aware), type in 4 handwriting styles, or upload a photo (background removed automatically). Up to 8 signatures are remembered on the device
+- **Edit existing text** — tap a line to change it; the original font style, size and colours are matched
+- **Add** text boxes (font, size, bold/italic, colour), images, white-out, boxes, circles, lines, arrows, ticks, crosses, dots, today's date and stamps (Approved, Paid, Draft…)
+- Everything can be selected, moved, resized, recoloured, duplicated and deleted, with full **undo / redo**
+- **Pages** — rotate, insert blank, duplicate, move up/down, extract or delete pages
+- Works on rotated pages; keyboard shortcuts on desktop (Ctrl+Z/Y/S/D, Delete, arrow keys)
 
 ### 📖 PDF Reader
 - Smooth continuous scrolling that stays fast on long documents (pages render only when near the screen)
@@ -19,7 +28,7 @@ Everything runs in your browser. Your files never leave your device.
 - Selectable, copyable text
 - Remembers the page you were on
 - Opens password-protected PDFs
-- **Annotate:** highlighter, pen, text notes and eraser, with undo. Annotations are saved into the PDF
+- **Annotate:** highlighter, pen and eraser — all saved into the PDF
 - Share, download, print and document info
 
 ### 📷 Document Scanner
@@ -45,7 +54,7 @@ Everything runs in your browser. Your files never leave your device.
 | Category | Tools |
 |---|---|
 | **Scan** | Document Scanner, QR Code (create/read), Enhance Image, Business Card, Study Cards |
-| **View & Edit** | PDF Reader, Sign PDF, Signature, Fill Forms, Watermark, Page Numbers, Header & Footer, Edit Metadata |
+| **View & Edit** | PDF Reader, Edit PDF, Fill & Sign, Signature, Fill Forms, Watermark, Page Numbers, Header & Footer, Edit Metadata |
 | **Convert** | Create PDF, Image → PDF, Text → PDF, HTML → PDF, Word → PDF, PDF → JPG, PDF → Text, PDF → Word, OCR |
 | **Organize** | Merge, Split, Organize pages, Rotate, Delete pages, Insert page, Crop, Resize pages |
 | **Optimize** | Compress, Grayscale, Flatten, Extract images |
