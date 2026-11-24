@@ -3254,6 +3254,7 @@ const EXT_COLORS={pdf:'#e5372b',jpg:'#0ea5a4',jpeg:'#0ea5a4',png:'#0ea5a4',webp:
 const extOf=n=>(String(n).split('.').pop()||'').toLowerCase();
 const MIME={pdf:'application/pdf',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',webp:'image/webp',txt:'text/plain',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',zip:'application/zip',html:'text/html',json:'application/json',vcf:'text/vcard',csv:'text/csv'};
 function relTime(ts){const d=(Date.now()-ts)/1000;if(d<60)return'Just now';if(d<3600)return Math.floor(d/60)+' min ago';if(d<86400)return Math.floor(d/3600)+' h ago';if(d<172800)return'Yesterday';return new Date(ts).toLocaleDateString(undefined,{day:'numeric',month:'short',year:new Date(ts).getFullYear()===new Date().getFullYear()?undefined:'numeric'});}
+function hexFull(h){h=String(h||'#000000').trim();if(/^#[0-9a-f]{3}$/i.test(h))h='#'+[...h.slice(1)].map(c=>c+c).join('');return /^#[0-9a-f]{6}$/i.test(h)?h:'#000000';}
 function rawDownload(blob,name){const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:name});document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
 async function shareFiles(files,fallbackName){
   try{if(navigator.canShare&&navigator.canShare({files})){await navigator.share({files,title:files.length===1?files[0].name:fallbackName||'Files'});return true;}}
@@ -3471,11 +3472,12 @@ async function renderFiles(){
 function startSelect(id){_selecting=true;_sel=new Set(id?[id]:[]);navigator.vibrate?.(15);renderFiles();}
 function toggleSel(id){_sel.has(id)?_sel.delete(id):_sel.add(id);if(!_sel.size)_selecting=false;renderFiles();}
 function endSelect(){_selecting=false;_sel.clear();renderFiles();}
-function updateSelBar(){const b=$('#selbar');b.classList.toggle('on',_selecting);$('#sel-count').textContent=`${_sel.size} selected`;}
+const _selCache={};
+function updateSelBar(){_sel.forEach(id=>{if(!_selCache[id])LIB.file(id).then(f=>_selCache[id]=f).catch(()=>{});});const b=$('#selbar');b.classList.toggle('on',_selecting);$('#sel-count').textContent=`${_sel.size} selected`;}
 async function openLibFile(id){const m=await LIB.get(id);if(!m)return;if(m.type==='application/pdf'){openReader({file:await LIB.file(id),libId:id});}else fileMenu(id);}
 async function renameFile(id){const m=await LIB.get(id);if(!m)return;const ext=extOf(m.name);let n=await promptSheet('Rename',m.name,'Rename');if(!n)return;if(ext&&extOf(n)!==ext)n+='.'+ext;await LIB.update(id,{name:n,modified:Date.now()});toast('Renamed');}
 async function fileMenu(id){
-  const m=await LIB.get(id);if(!m)return;const isPdf=m.type==='application/pdf',isImg=(m.type||'').startsWith('image/');
+  const m=await LIB.get(id);if(!m)return;const fileP=LIB.file(id);let file=null;fileP.then(f=>file=f).catch(()=>{});const isPdf=m.type==='application/pdf',isImg=(m.type||'').startsWith('image/');
   const s=openSheet(`<div class="result-head"><div class="fthumb" style="width:52px;height:66px">${thumbHTML(m)}</div><div style="min-width:0"><h3 style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.name)}</h3><div class="sub" style="margin:0">${fmtSize(m.size)}${m.pages?' · '+m.pages+' pages':''} · ${new Date(m.modified).toLocaleString()}</div></div></div>
     ${m.letter?`<button class="menu-item" data-a="letter">${ic('pencil')}Edit letter</button>`:''}
     ${isPdf?`<button class="menu-item" data-a="open">${ic('eye')}Open</button>`:''}
@@ -3487,7 +3489,9 @@ async function fileMenu(id){
     <button class="menu-item" data-a="dup">${ic('copy')}Duplicate</button>
     <button class="menu-item danger" data-a="del">${ic('trash')}Delete</button>`);
   s.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{
-    const a=b.dataset.a;closeSheet();await new Promise(r=>setTimeout(r,220));
+    const a=b.dataset.a;
+    if(a==='share'){closeSheet();shareFiles([file||await fileP]);return;}
+    closeSheet();await new Promise(r=>setTimeout(r,220));
     if(a==='open')openLibFile(id);
     if(a==='letter')lhEditLetterFromLib(id);
     if(a==='view'){const f=await LIB.file(id);const u=URL.createObjectURL(f);openSheet(`<img src="${u}" style="width:100%;border-radius:12px;background:#fff"/>`,()=>URL.revokeObjectURL(u));}
@@ -3549,7 +3553,7 @@ function boot(){
   $('#files-select').onclick=()=>_selecting?endSelect():startSelect();
   $('#sel-cancel').onclick=endSelect;
   $('#sel-del').onclick=async()=>{if(!_sel.size)return;if(await confirmSheet(`Delete ${_sel.size} file${_sel.size>1?'s':''}?`,'They will be removed from this device.')){for(const id of _sel)await LIB.remove(id);endSelect();toast('Deleted');}};
-  $('#sel-share').onclick=async()=>{if(!_sel.size)return;shareFiles(await Promise.all([..._sel].map(id=>LIB.file(id))));};
+  $('#sel-share').onclick=async()=>{if(!_sel.size)return;const ids=[..._sel];shareFiles(ids.every(id=>_selCache[id])?ids.map(id=>_selCache[id]):await Promise.all(ids.map(id=>LIB.file(id))));};
   $('#sel-merge').onclick=async()=>{const ids=[..._sel];const fs=await Promise.all(ids.map(id=>LIB.file(id)));const pdfs=fs.filter(f=>extOf(f.name)==='pdf');if(pdfs.length<2)return toast('Select at least 2 PDFs to merge');endSelect();openTool('merge');setTimeout(()=>{mergeFiles=pdfs;renderMerge();},80);};
   $('#scrim').onclick=closeSheet;
   $('#home-theme').onclick=()=>setTheme(document.body.classList.contains('light')?'dark':'light');
@@ -3919,7 +3923,15 @@ function rdMenu(){
       openSheet(`<h3>Document info</h3><div style="margin-top:10px">${rows.map(r=>`<div class="settings-row" style="padding:10px 4px"><div class="sr-t"><span>${r[0]}</span><b style="font-weight:500;word-break:break-word">${esc(r[1])}</b></div></div>`).join('')}</div>`);}
   });
 }
-async function rdShare(){if(RD.dirty){try{const b=await rdBuildPdf();return shareFiles([new File([b],RD.file.name,{type:'application/pdf'})]);}catch(e){toast(esc(e.message));return;}}shareFiles([RD.file]);}
+async function rdShare(){
+  if(!RD.dirty)return shareFiles([RD.file]);
+  // edits must be built into the PDF first; then ask for a fresh tap so phones allow the share sheet
+  toast('Preparing your edited PDF…',1500);
+  try{const f=new File([await rdBuildPdf()],RD.file.name,{type:'application/pdf'});
+    const s=openSheet(`<div class="result-head"><div class="result-ok">${ic('share')}</div><div><h3>Ready to share</h3><div class="sub" style="margin:0">${esc(f.name)} · ${fmtSize(f.size)} · includes your unsaved edits</div></div></div><button class="btn btn-primary" id="sh-go" style="width:100%">Share</button>`);
+    s.querySelector('#sh-go').onclick=()=>{closeSheet();shareFiles([f]);};}
+  catch(e){toast(esc(e.message));}
+}
 function rdPrint(){const u=URL.createObjectURL(RD.file);const f=document.createElement('iframe');f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';f.src=u;document.body.appendChild(f);f.onload=()=>{try{f.contentWindow.focus();f.contentWindow.print();}catch{window.open(u,'_blank');}setTimeout(()=>{f.remove();URL.revokeObjectURL(u);},60000);};}
 
 // ── Annotations ──
@@ -4330,7 +4342,7 @@ async function rdBuildPdf({flatten=false}={}){
     const map={sans:['Helvetica','HelveticaBold','HelveticaOblique','HelveticaBoldOblique'],serif:['TimesRoman','TimesRomanBold','TimesRomanItalic','TimesRomanBoldItalic'],mono:['Courier','CourierBold','CourierOblique','CourierBoldOblique']}[fam||'sans'];
     return fontCache[key]=await doc.embedFont(StandardFonts[map[(b?1:0)+(it?2:0)]]);};
   const win=s=>String(s??'').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,'-').replace(/…/g,'...').replace(/[^\x20-\x7E\xA0-\xFF\n]/g,'?');
-  const col=h=>{const[r,g,b]=hex2rgb(h||'#000000');return rgb(r,g,b);};
+  const col=h=>{const[r,g,b]=hex2rgb(hexFull(h));return rgb(r,g,b);};
   // forms
   const names=Object.keys(RD.form);
   if(names.length||flatten){let form=null;try{form=doc.getForm();}catch{}
@@ -4513,7 +4525,7 @@ async function lhPdf(pagesOps,{title}={}){
   await waitForPdfLib();const{PDFDocument,StandardFonts:S,rgb}=PDFLib;const doc=await PDFDocument.create();if(title)doc.setTitle(title);doc.setCreator('PDF Tools — Letterhead');
   const fonts={};const font=async key=>fonts[key]||(fonts[key]=await doc.embedFont({sans:S.Helvetica,sansB:S.HelveticaBold,sansI:S.HelveticaOblique,serif:S.TimesRoman,serifB:S.TimesRomanBold,serifI:S.TimesRomanItalic}[key]));
   const imgs={};const img=async src=>{if(imgs[src])return imgs[src];const bytes=Uint8Array.from(atob(src.split(',')[1]),ch=>ch.charCodeAt(0));return imgs[src]=src.startsWith('data:image/png')?await doc.embedPng(bytes):await doc.embedJpg(bytes);};
-  const col=h=>{const[r,g,b]=hex2rgb(h);return rgb(r,g,b);};
+  const col=h=>{const[r,g,b]=hex2rgb(hexFull(h));return rgb(r,g,b);};
   for(const ops of pagesOps){const p=doc.addPage([PW,PH]);
     for(const o of ops){
       if(o.t==='img')p.drawImage(await img(o.src),{x:o.x,y:PH-o.y-o.h,width:o.w,height:o.h});
