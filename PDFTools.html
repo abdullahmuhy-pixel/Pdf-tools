@@ -16,7 +16,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <link rel="manifest" href="./manifest.json"/>
-<link rel="apple-touch-icon" href="./icon-192.png"/>
+<link rel="apple-touch-icon" href="./apple-touch-icon.png"/>
+<link rel="icon" type="image/svg+xml" href="./icon.svg"/>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png"/>
 <title>PDF Tools</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600&family=Great+Vibes&family=Caveat:wght@600&family=Pacifico&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
@@ -273,7 +275,7 @@ button{font-family:inherit}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .appbar{display:flex;align-items:center;gap:10px;padding:calc(16px + var(--safe-t)) 18px 10px}
 .brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
-.brand-logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#ff7a4d,#e0402a);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(240,86,58,.35)}
+.brand-logo{width:38px;height:38px;border-radius:11px;display:block;box-shadow:0 4px 14px rgba(240,86,58,.3)}
 .brand-logo svg{width:20px;height:20px;stroke:#fff}
 .brand-name{font-size:21px;font-weight:700;letter-spacing:-.3px}
 .view-title{font-size:24px;font-weight:700;letter-spacing:-.4px;flex:1}
@@ -684,7 +686,7 @@ body.light #rd-scroll{background:#e4e7ec}
   <!-- HOME -->
   <section class="view" id="view-home">
     <div class="appbar">
-      <div class="brand"><div class="brand-logo"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8M8 17h5"/></svg></div><div class="brand-name">PDF Tools</div></div>
+      <div class="brand"><img class="brand-logo" src="./icon.svg" alt="" width="36" height="36"/><div class="brand-name">PDF Tools</div></div>
       <button class="ibtn" id="home-theme" aria-label="Toggle theme"></button>
       <button class="ibtn" id="home-settings" aria-label="Settings"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     </div>

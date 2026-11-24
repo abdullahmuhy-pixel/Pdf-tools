@@ -4,11 +4,18 @@
 //     SW, install it, nuke the old cache, and pull fresh assets — guaranteed.
 //     Format: YYYYMMDD-N  (increment N if you push more than once per day)
 // ─────────────────────────────────────────────────────────────────────────────
-const BUILD = '20261124-1';
+const BUILD = '20261124-2';
 const CACHE  = `pdf-tools-${BUILD}`;
 
 // CDN libs to pre-cache (HTML files are intentionally NOT here — always fetched fresh)
 const PRECACHE = [
+  './icon.svg',
+  './icon-192.png',
+  './icon-512.png',
+  './icon-maskable-192.png',
+  './icon-maskable-512.png',
+  './apple-touch-icon.png',
+  './favicon-32.png',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',

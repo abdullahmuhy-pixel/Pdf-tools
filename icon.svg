@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a4c"/><stop offset=".55" stop-color="#f0563a"/><stop offset="1" stop-color="#c8321f"/></linearGradient>
+      <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f3f4f7"/></linearGradient>
+      <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#5a0f00" flood-opacity=".35"/></filter>
+      <filter id="sh2" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".3"/></filter>
+    </defs><rect width="512" height="512" rx="112" fill="url(#g)"/><g transform="translate(256 262) scale(.84) translate(-256 -262)"><g filter="url(#sh)"><path d="M168 118h128l66 66v206a22 22 0 0 1-22 22H168a22 22 0 0 1-22-22V140a22 22 0 0 1 22-22z" fill="url(#pg)"/>
+      <path d="M296 118v44a22 22 0 0 0 22 22h44z" fill="#ffd2c4"/></g><rect x="178" y="196" width="120" height="13" rx="6.5" fill="#d7dbe3"/><rect x="178" y="222" width="90" height="13" rx="6.5" fill="#d7dbe3"/>
+        <rect x="120" y="262" width="180" height="70" rx="16" fill="#d93a22"/>
+        <text x="210" y="311" font-family="Inter,Arial,Helvetica,sans-serif" font-weight="800" font-size="50" fill="#fff" text-anchor="middle" letter-spacing="1.5">PDF</text>
+        <rect x="178" y="356" width="130" height="13" rx="6.5" fill="#d7dbe3"/>
+        </g><g fill="none" stroke="#fff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"><path d="M116 164v-44h44M396 164v-44h-44M116 360v44h44M396 360v44h-44"/></g></svg>
