@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<meta name="description" content="37 PDF tools in your browser — PDF editor, fill & sign, reader, document scanner, — merge, split, sign, OCR, redact, watermark and more. No uploads, no server, works offline."/>
+<meta name="description" content="38 PDF tools in your browser — PDF editor, fill & sign, letterheads, reader, document scanner, — merge, split, sign, OCR, redact, watermark and more. No uploads, no server, works offline."/>
 <meta property="og:title" content="PDF Tools — reader, scanner & 36 tools, no uploads"/>
 <meta property="og:description" content="Merge, split, sign, OCR, redact, watermark and more. Everything runs in your browser. No uploads. No server. Fully offline."/>
 <meta property="og:image" content="https://abdullahmuhy-pixel.github.io/Pdf-tools/icon-512.png"/>
@@ -553,6 +553,62 @@ body.light #rd-scroll{background:#e4e7ec}
 .stamp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .stamp-opt{border:2.5px solid;font-weight:800;padding:11px 6px;text-align:center;cursor:pointer;background:#fff;font-family:Helvetica,Arial,sans-serif;font-size:14px}
 @media(max-width:430px){#rb-redo{display:none}.rd-tab{font-size:11.5px;padding:7px 7px}.rd-row2 .ibtn{width:34px;height:36px}.rd-tool{min-width:52px}}
+/* ─ Letterhead studio ─ */
+#lh{position:fixed;inset:0;z-index:62;background:var(--bg);display:none;flex-direction:column}
+#lh.on{display:flex}
+.lh-top{display:flex;align-items:center;gap:8px;padding:calc(8px + var(--safe-t)) 10px 8px;background:var(--surface);border-bottom:1px solid var(--border)}
+.lh-top .ttl{flex:1;font-size:16px;font-weight:700;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lh-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
+.lh-wrap{max-width:1180px;margin:0 auto;padding:16px}
+.lh-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:900px){.lh-grid{grid-template-columns:minmax(340px,420px) 1fr}.lh-prev-col{position:sticky;top:0;align-self:start;max-height:calc(100vh - 90px);overflow:auto}.lh-seg{display:none!important}}
+@media(max-width:899px){.lh-grid.show-prev .lh-form{display:none}.lh-grid:not(.show-prev) .lh-prev-col{display:none}}
+.lh-seg{display:flex;margin:0 0 14px}
+.lh-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:12px}
+.lh-card h4{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text)}
+.lh-f{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.lh-f label{font-size:11.5px;color:var(--text3);font-weight:600}
+.lh-f input,.lh-f textarea,.lh-f select{width:100%}
+.lh-f textarea{resize:vertical;min-height:70px;line-height:1.45}
+.lh-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lh-tpls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lh-tpl{border:2px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;background:#fff;padding:0;position:relative}
+.lh-tpl canvas{width:100%;display:block}
+.lh-tpl span{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:700;padding:3px 0;text-align:center}
+.lh-tpl.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.lh-colors{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lh-colors .pc{width:28px;height:28px}
+.lh-colors input[type=color]{width:34px;height:30px;border:none;background:none;padding:0;cursor:pointer}
+.lh-logo{display:flex;align-items:center;gap:12px}
+.lh-logo .lg{width:72px;height:54px;border-radius:10px;border:1px dashed var(--border);background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.lh-logo .lg img{max-width:90%;max-height:90%}
+.lh-pages{display:flex;flex-direction:column;gap:14px;align-items:center;padding:6px 0 30px}
+.lh-pages canvas{width:100%;max-width:640px;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.35);border-radius:2px}
+.lh-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.lh-item{cursor:pointer}
+.lh-item .th{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;aspect-ratio:.707;position:relative}
+.lh-item .th canvas{width:100%;display:block}
+.lh-item .nm{font-size:13px;font-weight:600;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lh-item .mt{font-size:11.5px;color:var(--text3)}
+.lh-new{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;aspect-ratio:.707;border:2px dashed var(--border);border-radius:10px;color:var(--text2);font-size:12.5px;font-weight:600;cursor:pointer;background:var(--surface);text-align:center;padding:8px}
+.lh-new:hover{border-color:var(--accent);color:var(--accent)}
+.lh-new .ic{width:28px;height:28px}
+.lh-h{font-size:15px;font-weight:700;margin:6px 0 12px}
+.lh-sub{font-size:12.5px;color:var(--text2);margin:-6px 0 14px;line-height:1.5}
+.lh-sigs{display:flex;gap:8px;flex-wrap:wrap}
+.lh-sig{height:52px;min-width:90px;background:#fff;border:2px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:4px 8px;color:#333;font-size:12px;font-weight:600}
+.lh-sig img{max-height:40px;max-width:120px}
+.lh-sig.on{border-color:var(--accent)}
+.lh-actions{position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 30%);padding:14px 0 calc(6px + var(--safe-b));display:flex;gap:10px}
+.lh-actions .btn{flex:1}
+.lh-range{display:flex;align-items:center;gap:10px}
+.lh-range input{flex:1;accent-color:var(--accent)}
+.lh-range span{font-size:12px;color:var(--text2);min-width:46px;text-align:right}
+.lh-banner{margin:14px 18px 0;border-radius:18px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;gap:14px;cursor:pointer}
+.lh-banner .bi{width:46px;height:46px;border-radius:14px;background:var(--c-edit);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lh-banner .bi svg{stroke:#fff;width:24px;height:24px}
+.lh-banner b{font-size:14.5px;display:block}.lh-banner span{font-size:12px;color:var(--text2);line-height:1.4}
+.fbadge{display:inline-block;font-size:9.5px;font-weight:800;color:#fff;background:var(--c-edit);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:1px}
 /* ─ Scanner ─ */
 #scanner{position:fixed;inset:0;z-index:70;background:#000;color:#fff;display:none;flex-direction:column;user-select:none;-webkit-user-select:none}
 #scanner.on{display:flex}
@@ -632,12 +688,13 @@ body.light #rd-scroll{background:#e4e7ec}
       <button class="ibtn" id="home-theme" aria-label="Toggle theme"></button>
       <button class="ibtn" id="home-settings" aria-label="Settings"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     </div>
-    <div class="searchbar"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.6" y2="16.6"/></svg><input id="home-q" type="search" placeholder="Search 37 tools…" readonly/></div>
+    <div class="searchbar"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.6" y2="16.6"/></svg><input id="home-q" type="search" placeholder="Search 38 tools…" readonly/></div>
     <div class="hero-actions" id="hero-actions"></div>
     <div class="scan-hero" id="scan-hero">
       <div class="sh-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></div>
       <div style="position:relative;z-index:1"><h3>Scan a document</h3><p>Auto edge detection, perspective fix, and clean black &amp; white or colour filters.</p></div>
     </div>
+    <div class="lh-banner" onclick="openTool('letterhead')"><div class="bi"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M4 7h16"/><path d="M8 11h8M8 14.5h8M8 18h5"/></svg></div><div style="flex:1"><b>Letterheads &amp; letters</b><span>Design your company letterhead or upload yours, then write letters on it.</span></div><svg class="ic" viewBox="0 0 24 24" style="color:var(--text3)"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div id="home-recent"></div>
     <div class="sec-h"><h2>Popular tools</h2><a onclick="go('tools')">All tools</a></div>
     <div class="tgrid" id="home-popular"></div>
@@ -3135,8 +3192,9 @@ const CATS={
   optimize:{t:'Optimize',c:'var(--c-optimize)'},
   security:{t:'Security',c:'var(--c-security)'},
 };
-ALL_TOOLS.forEach(t=>delete t.badge);ALL_TOOLS.unshift({id:'reader',label:'PDF Reader',icon:'reader',badge:'NEW'},{id:'edit-pdf',label:'Edit PDF',icon:'editpdf',badge:'NEW'});{const e=ALL_TOOLS.find(t=>t.id==='editor');if(e){e.label='Fill & Sign';e.badge='NEW';}}toolById_scan=ALL_TOOLS.find(t=>t.id==='scan');if(toolById_scan)toolById_scan.badge='NEW';
+ALL_TOOLS.forEach(t=>delete t.badge);ALL_TOOLS.unshift({id:'reader',label:'PDF Reader',icon:'reader',badge:'NEW'},{id:'edit-pdf',label:'Edit PDF',icon:'editpdf',badge:'NEW'},{id:'letterhead',label:'Letterhead & Letters',icon:'letterhead',badge:'NEW'});{const e=ALL_TOOLS.find(t=>t.id==='editor');if(e){e.label='Fill & Sign';e.badge='NEW';}}toolById_scan=ALL_TOOLS.find(t=>t.id==='scan');if(toolById_scan)toolById_scan.badge='NEW';
 SVGS.editpdf=`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/><polyline points="14 2 14 8 20 8"/><path d="M18.4 12.6a1.9 1.9 0 0 1 2.7 2.7L16 20.4l-3.6.9.9-3.6z"/></svg>`;
+SVGS.letterhead=`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M4 7h16"/><circle cx="8" cy="4.5" r=".6" fill="white"/><path d="M8 11h8M8 14.5h8M8 18h5"/></svg>`;
 SVGS.reader=`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS.book}</svg>`;
 const TOOL_META={
   'scan':['scan','Scan documents with your camera — auto crop, perspective fix and filters'],
@@ -3145,6 +3203,7 @@ const TOOL_META={
   'enhance':['scan','Brighten, sharpen and clean up a photo of a document'],
   'study-cards':['scan','Turn notes into flash cards for revision'],
   'reader':['edit','Read PDFs with search, thumbnails, night mode and annotations'],
+  'letterhead':['edit','Design or upload a company letterhead and write letters on it'],
   'edit-pdf':['edit','Change existing text, add text, images, shapes and white-out'],
   'editor':['edit','Sign, fill in forms, add dates, ticks and stamps'],
   'signature':['edit','Draw, type or upload a signature image'],
@@ -3341,6 +3400,7 @@ function openTool(id){
   if(id==='scan')return openScanner();
   if(id==='reader')return openPdfChooser(null,'Open a PDF');
   if(READER_MODES[id])return openPdfChooser(...READER_MODES[id]);
+  if(id==='letterhead')return openLetterhead();
   _toolOpenFromApp=true;location.hash='#tool/'+id;
 }
 function goHome(){if(_toolOpenFromApp&&history.length>1)history.back();else location.hash='';}
@@ -3359,10 +3419,12 @@ function route(){
   const h=decodeURIComponent(location.hash.slice(1));closeSheet();
   if(h!=='reader')closeReaderUI();
   if(h!=='scan')closeScannerUI();
+  if(h!=='letterhead')closeLetterheadUI();
   if(h.startsWith('tool/')){showTool(h.slice(5));return;}
   hideTool();
   if(h==='reader'){if(!RD.active){location.replace('#');}return;}
   if(h==='scan'){if(!SC.open)openScanner(true);return;}
+  if(h==='letterhead'){if(!LH.open)openLetterhead(true);return;}
   if(toolById(h)&&document.getElementById('panel-'+h)){location.replace('#tool/'+h);return;}
   const v=VIEWS.includes(h)?h:'home';
   document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+v));
@@ -3395,7 +3457,7 @@ async function renderFiles(){
   if(tf==='pdf')files=files.filter(m=>m.type==='application/pdf');else if(tf==='img')files=files.filter(m=>(m.type||'').startsWith('image/'));else if(tf==='other')files=files.filter(m=>m.type!=='application/pdf'&&!(m.type||'').startsWith('image/'));
   if(_filesSort==='name')files.sort((a,b)=>a.name.localeCompare(b.name));else if(_filesSort==='size')files.sort((a,b)=>b.size-a.size);
   const list=$('#files-list');list.classList.toggle('selecting',_selecting);
-  list.innerHTML=files.length?files.map(m=>`<div class="fitem ${_sel.has(m.id)?'sel':''}" data-id="${m.id}"><div class="fcheck"></div><div class="fthumb">${thumbHTML(m)}</div><div class="finfo"><div class="fname">${esc(m.name)}</div><div class="fmeta">${relTime(m.modified)} · ${fmtSize(m.size)}${m.pages?' · '+m.pages+' pg':''}</div></div><button class="ibtn ghost" data-menu="${m.id}" aria-label="More">${ic('vmore','ic-sm')}</button></div>`).join('')
+  list.innerHTML=files.length?files.map(m=>`<div class="fitem ${_sel.has(m.id)?'sel':''}" data-id="${m.id}"><div class="fcheck"></div><div class="fthumb">${thumbHTML(m)}</div><div class="finfo"><div class="fname">${esc(m.name)}${m.letter?'<span class="fbadge">LETTER</span>':''}</div><div class="fmeta">${relTime(m.modified)} · ${fmtSize(m.size)}${m.pages?' · '+m.pages+' pg':''}</div></div><button class="ibtn ghost" data-menu="${m.id}" aria-label="More">${ic('vmore','ic-sm')}</button></div>`).join('')
     :`<div class="empty"><div class="eic">${ic('folder')}</div><h4>${q||tf!=='all'?'Nothing matches':'No files yet'}</h4><p>Scanned documents, PDFs you open and everything the tools create is kept here, on this device only.</p>${q||tf!=='all'?'':`<button class="btn btn-primary" onclick="openReaderPicker()">Open a PDF</button>`}</div>`;
   list.querySelectorAll('.fitem').forEach(r=>{
     let pressT;r.onpointerdown=()=>{pressT=setTimeout(()=>{pressT=null;startSelect(r.dataset.id);},520);};r.onpointerup=r.onpointerleave=()=>clearTimeout(pressT);
@@ -3415,6 +3477,7 @@ async function renameFile(id){const m=await LIB.get(id);if(!m)return;const ext=e
 async function fileMenu(id){
   const m=await LIB.get(id);if(!m)return;const isPdf=m.type==='application/pdf',isImg=(m.type||'').startsWith('image/');
   const s=openSheet(`<div class="result-head"><div class="fthumb" style="width:52px;height:66px">${thumbHTML(m)}</div><div style="min-width:0"><h3 style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.name)}</h3><div class="sub" style="margin:0">${fmtSize(m.size)}${m.pages?' · '+m.pages+' pages':''} · ${new Date(m.modified).toLocaleString()}</div></div></div>
+    ${m.letter?`<button class="menu-item" data-a="letter">${ic('pencil')}Edit letter</button>`:''}
     ${isPdf?`<button class="menu-item" data-a="open">${ic('eye')}Open</button>`:''}
     ${isImg?`<button class="menu-item" data-a="view">${ic('image')}View image</button>`:''}
     <button class="menu-item" data-a="share">${ic('share')}Share</button>
@@ -3426,6 +3489,7 @@ async function fileMenu(id){
   s.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{
     const a=b.dataset.a;closeSheet();await new Promise(r=>setTimeout(r,220));
     if(a==='open')openLibFile(id);
+    if(a==='letter')lhEditLetterFromLib(id);
     if(a==='view'){const f=await LIB.file(id);const u=URL.createObjectURL(f);openSheet(`<img src="${u}" style="width:100%;border-radius:12px;background:#fff"/>`,()=>URL.revokeObjectURL(u));}
     if(a==='share')shareFiles([await LIB.file(id)]);
     if(a==='dl'){const f=await LIB.file(id);rawDownload(f,f.name);}
@@ -3699,7 +3763,7 @@ async function openReader({file,libId=null,state=null}){
   document.getElementById('rd-loading').style.display='flex';
   rdSetMode(localStorage.getItem('pdftools-readmode')||'day');
   if(location.hash!=='#reader')location.hash='#reader';
-  if(libId)LIB.update(libId,{opened:Date.now()}).catch(()=>{});
+  RD.isLetter=false;if(libId)LIB.update(libId,{opened:Date.now()}).then(m=>{RD.isLetter=!!m?.letter;}).catch(()=>{});
   try{
     await waitForPdfJs();
     RD.bytes=new Uint8Array(await file.arrayBuffer());
@@ -3831,6 +3895,7 @@ function rdMenu(){
   const s=openSheet(`<h3 style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(RD.file?.name)}</h3><p class="sub">${RD.pages.length} pages · ${fmtSize(RD.file?.size||0)}</p>
     <div class="settings-row" style="padding-top:4px"><div class="sr-t"><b>Reading mode</b></div><div class="seg" id="rm-mode"><button data-m="day">Day</button><button data-m="sepia">Sepia</button><button data-m="night">Night</button></div></div>
     <button class="menu-item" data-a="goto">${ic('hash')}Go to page…</button>
+    ${RD.isLetter?`<button class="menu-item" data-a="letter">${ic('type')}Edit letter text</button>`:''}
     <button class="menu-item" data-a="edit">${ic('pencil')}Edit PDF (text, images, shapes)</button>
     <button class="menu-item" data-a="sign">${ic('sign')}Fill &amp; Sign</button>
     <button class="menu-item" data-a="ann">${ic('highlight')}Annotate (highlight, draw)</button>
@@ -3846,7 +3911,7 @@ function rdMenu(){
     <button class="menu-item" data-a="info">${ic('info')}Document info</button>`);
   s.querySelectorAll('#rm-mode button').forEach(b=>{b.classList.toggle('on',b.dataset.m===RD.mode);b.onclick=()=>{rdSetMode(b.dataset.m);s.querySelectorAll('#rm-mode button').forEach(x=>x.classList.toggle('on',x===b));};});
   s.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{const a=b.dataset.a;closeSheet();await new Promise(r=>setTimeout(r,200));
-    if(a==='goto')rdGotoPrompt();if(a==='ann')rdEnter('annotate');if(a==='edit')rdEnter('edit');if(a==='sign')rdEnter('sign');if(a==='pages')rdEnter('pages');if(a==='save')rdSave();if(a==='copy')rdSave({copy:true});if(a==='flatten')rdSave({flatten:true});if(a==='share')rdShare();
+    if(a==='goto')rdGotoPrompt();if(a==='letter'){const id=RD.libId;closeReaderUI();lhEditLetterFromLib(id);}if(a==='ann')rdEnter('annotate');if(a==='edit')rdEnter('edit');if(a==='sign')rdEnter('sign');if(a==='pages')rdEnter('pages');if(a==='save')rdSave();if(a==='copy')rdSave({copy:true});if(a==='flatten')rdSave({flatten:true});if(a==='share')rdShare();
     if(a==='dl'){if(RD.dirty){const b=new Blob([await rdBuildPdf()],{type:'application/pdf'});rawDownload(b,RD.file.name);}else rawDownload(RD.file,RD.file.name);}if(a==='print')rdPrint();
     if(a==='tool'){if(RD.dirty)await rdSaveAnnotations();const id=RD.libId;if(id)pickToolForFile(id);}
     if(a==='text'){toast('Extracting text…');let out=[];for(let i=0;i<RD.pages.length;i++){const t=await rdEnsureText(i);out.push(t.tc.items.map(it=>(it.str||'')+(it.hasEOL?'\n':'')).join(''));}const txt=out.join('\n\n').trim();if(!txt)return toast('No selectable text — try the OCR tool');try{await navigator.clipboard.writeText(txt);toast(`Copied ${txt.length.toLocaleString()} characters`);}catch{rawDownload(new Blob([txt],{type:'text/plain'}),RD.file.name.replace(/\.pdf$/i,'')+'.txt');}}
@@ -4340,6 +4405,334 @@ async function rdPageOp(kind){
     await openReader({file:new File([out],RD.file.name,{type:'application/pdf'}),libId:RD.libId,state});toast(msg+' · tap Save to keep it',2200);
   }catch(e){toast('Could not change pages: '+esc(e.message),4000);}
 }
+
+// ══════════════════════════════════════════════════════
+// LETTERHEAD STUDIO — design or upload letterheads, write
+// letters on them, save as PDF and re-open to edit later
+// ══════════════════════════════════════════════════════
+const PW=595.28,PH=841.89;
+const KV={_db:null,
+  db(){return this._db||(this._db=new Promise((res,rej)=>{const r=indexedDB.open('pdftools-kv',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));},
+  async get(k){const d=await this.db();return new Promise((res,rej)=>{const q=d.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});},
+  async set(k,v){const d=await this.db();return new Promise((res,rej)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error);});}};
+const LH_TEMPLATES=[['classic','Classic'],['modern','Modern'],['band','Bold band'],['minimal','Minimal'],['sidebar','Sidebar'],['elegant','Elegant']];
+const LH_COLORS=['#0b3d91','#1f6feb','#067647','#b42318','#f0563a','#7a2e98','#0e7490','#111827','#a16207'];
+const lhWin=s=>String(s??'').replace(/[^\x20-\x7E\xA0-\xFF•–—‘’“”€…™\n]/g,'?');
+const lhUid=()=>'lh'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const LH={list:[],view:'home',cur:null,letter:null,showPrev:false,metrics:null,imgCache:{}};
+
+// ── Font metrics (pdf-lib standard fonts, so preview = PDF) ──
+async function lhMetrics(){
+  if(LH.metrics)return LH.metrics;await waitForPdfLib();const{PDFDocument,StandardFonts:S}=PDFLib;const d=await PDFDocument.create();
+  const f={sans:await d.embedFont(S.Helvetica),sansB:await d.embedFont(S.HelveticaBold),sansI:await d.embedFont(S.HelveticaOblique),serif:await d.embedFont(S.TimesRoman),serifB:await d.embedFont(S.TimesRomanBold),serifI:await d.embedFont(S.TimesRomanItalic)};
+  return LH.metrics={f,w:(t,size,key)=>f[key].widthOfTextAtSize(lhWin(t),size)};
+}
+const fk=(serif,bold,italic)=>(serif?'serif':'sans')+(bold?'B':italic?'I':'');
+
+// ── Letterhead templates → drawing ops (points, top-left origin) ──
+function lhFit(img,mw,mh){if(!img?.w)return null;const k=Math.min(mw/img.w,mh/img.h,1e9);return{w:img.w*k,h:img.h*k};}
+function lhContacts(d){return[...(d.address||'').split('\n').map(s=>s.trim()).filter(Boolean),d.phone,d.email,d.web].filter(Boolean);}
+function lhDesignOps(d,M){
+  const ops=[],ser=d.font==='serif'||d.template==='elegant',acc=d.color||'#0b3d91',gray='#555b66',dark='#111827';
+  const T=(text,x,y,size,o={})=>{if(!text)return;const key=fk(o.serif??ser,o.bold,o.italic);const w=M.w(text,size,key);const ax=o.align==='center'?x-w/2:o.align==='right'?x-w:x;ops.push({t:'text',x:ax,y,text:lhWin(text),size,key,color:o.color||dark});return w;};
+  const name=d.name||'Company Name',tag=d.tagline,cl=lhContacts(d),L=50,R=PW-50,C=PW/2;let top,bottom,left=L+10,right=R-10;
+  const logo=d.logo?{...d.logo}:null;
+  if(d.template==='classic'){let y=36;const f=lhFit(logo,150,58);if(f){ops.push({t:'img',x:C-f.w/2,y,w:f.w,h:f.h,src:logo.src});y+=f.h+10;}
+    T(name,C,y+18,20,{bold:true,align:'center',color:acc});y+=26;if(tag){T(tag,C,y+8,9.5,{italic:true,align:'center',color:gray});y+=14;}
+    ops.push({t:'line',x1:L,y1:y+8,x2:R,y2:y+8,w:1.4,color:acc});top=y+36;
+    ops.push({t:'line',x1:L,y1:PH-60,x2:R,y2:PH-60,w:.6,color:'#c4c9d2'});T(cl.join('   •   '),C,PH-45,7.8,{align:'center',color:gray});if(d.extra)T(d.extra,C,PH-33,7.2,{align:'center',color:gray});bottom=PH-78;}
+  else if(d.template==='modern'||d.template==='sidebar'){const x0=d.template==='sidebar'?66:L;if(d.template==='sidebar'){ops.push({t:'rect',x:0,y:0,w:20,h:PH,color:acc});left=x0+10;}
+    const y0=38;const f=lhFit(logo,78,62);let tx=x0;if(f){ops.push({t:'img',x:x0,y:y0,w:f.w,h:f.h,src:logo.src});tx=x0+f.w+14;}
+    T(name,tx,y0+22,18,{bold:true,color:acc});if(tag)T(tag,tx,y0+37,9,{italic:true,color:gray});
+    cl.forEach((s,k)=>T(s,R,y0+10+k*11,8.4,{align:'right',color:gray}));
+    const H=Math.max(f?f.h:0,tag?42:28,cl.length*11+2);const ry=y0+H+12;ops.push({t:'line',x1:x0,y1:ry,x2:R,y2:ry,w:2,color:acc});top=ry+34;
+    ops.push({t:'line',x1:x0,y1:PH-52,x2:R,y2:PH-52,w:.6,color:'#c4c9d2'});T(d.extra||'',x0,PH-38,7.4,{color:gray});T(d.web||'',R,PH-38,7.4,{align:'right',color:acc});bottom=PH-70;}
+  else if(d.template==='band'){ops.push({t:'rect',x:0,y:0,w:PW,h:98,color:acc});const f=lhFit(logo,120,58);if(f){ops.push({t:'rect',x:R-f.w-10,y:20,w:f.w+20,h:f.h+12,color:'#ffffff'});ops.push({t:'img',x:R-f.w,y:26,w:f.w,h:f.h,src:logo.src});}
+    T(name,L,50,23,{bold:true,color:'#ffffff'});if(tag)T(tag,L,70,10,{color:'#ffffff'});
+    const line=cl.join('   |   ');T(line,L,118,8.4,{color:gray});top=150;
+    ops.push({t:'rect',x:0,y:PH-16,w:PW,h:16,color:acc});if(d.extra)T(d.extra,C,PH-26,7.4,{align:'center',color:gray});bottom=PH-52;}
+  else if(d.template==='minimal'){const f=lhFit(logo,60,44);let tx=L;if(f){ops.push({t:'img',x:L,y:36,w:f.w,h:f.h,src:logo.src});tx=L+f.w+12;}
+    T(name,tx,56,16,{bold:true,color:dark});ops.push({t:'rect',x:tx,y:63,w:34,h:3,color:acc});if(tag)T(tag,tx,80,8.6,{color:gray});
+    cl.forEach((s,k)=>T(s,R,44+k*10.5,8,{align:'right',color:gray}));top=Math.max(118,52+cl.length*10.5+30);
+    T([d.extra,d.web].filter(Boolean).join('   •   '),R,PH-36,7.4,{align:'right',color:gray});bottom=PH-60;}
+  else{/* elegant */let y=34;const f=lhFit(logo,130,50);if(f){ops.push({t:'img',x:C-f.w/2,y,w:f.w,h:f.h,src:logo.src});y+=f.h+8;}
+    T(name.toUpperCase(),C,y+22,21,{bold:true,align:'center',serif:true,color:dark});y+=30;if(tag){T(tag,C,y+6,9.5,{italic:true,align:'center',serif:true,color:gray});y+=12;}
+    ops.push({t:'line',x1:150,y1:y+10,x2:PW-150,y2:y+10,w:.9,color:acc});ops.push({t:'line',x1:150,y1:y+13.5,x2:PW-150,y2:y+13.5,w:.4,color:acc});top=y+42;
+    T(cl.join('  ·  '),C,PH-42,7.8,{align:'center',serif:true,color:gray});if(d.extra)T(d.extra,C,PH-30,7.2,{align:'center',serif:true,color:gray});ops.push({t:'line',x1:C-40,y1:PH-56,x2:C+40,y2:PH-56,w:.6,color:acc});bottom=PH-72;left=70;right=PW-70;}
+  return{ops,top,bottom,left,right};
+}
+function lhImageOps(im){
+  const ops=[];if(im.mode==='page'){ops.push({t:'img',x:0,y:0,w:PW,h:PH,src:im.src});return{ops,top:im.top,bottom:im.bottom,left:im.left??60,right:PW-(im.left??60)};}
+  const h=PW*im.h/im.w;ops.push({t:'img',x:0,y:0,w:PW,h,src:im.src});let bottom=PH-56;
+  if(im.footer){const fh=PW*im.footer.h/im.footer.w;ops.push({t:'img',x:0,y:PH-fh,w:PW,h:fh,src:im.footer.src});bottom=PH-fh-20;}
+  return{ops,top:Math.max(h+26,im.top||0),bottom:Math.min(bottom,im.bottom||PH),left:im.left??60,right:PW-(im.left??60)};
+}
+function lhOps(lh,M){return lh.kind==='image'?lhImageOps(lh.image):lhDesignOps(lh.design,M);}
+
+// ── Letter layout ──
+function lhLetterPages(lh,L,M){
+  const H=lhOps(lh,M);const ser=L.font==='serif',size=+L.size||11,lead=size*1.45;const pages=[];let pg,y,top,bottom;const left=H.left,right=H.right,W=right-left;
+  const newPage=()=>{const first=!pages.length;const useLh=first||L.every!==false;pg={ops:useLh?[...H.ops]:[]};pages.push(pg);top=useLh?H.top:64;bottom=useLh?H.bottom:PH-56;y=top;};
+  const need=h=>{if(y+h>bottom)newPage();};
+  const text=(s,x,o={})=>{const key=fk(ser,o.bold,o.italic);pg.ops.push({t:'text',x,y:y+size*.8,text:lhWin(s),size,key,color:'#111111'});};
+  const wrap=(line,key,w)=>{const words=line.split(/ +/);const out=[];let cur='';for(const wd of words){const t=cur?cur+' '+wd:wd;if(M.w(t,size,key)>w&&cur){out.push(cur);cur=wd;}else cur=t;}out.push(cur);return out;};
+  const block=(s,o={})=>{for(const raw of String(s||'').split('\n')){if(!raw.trim()){y+=lead*.6;continue;}const key=fk(ser,o.bold,o.italic);const lines=wrap(raw,key,W);
+    lines.forEach((ln,k)=>{need(lead);const last=k===lines.length-1;
+      if(o.justify&&!last&&ln.includes(' ')){const ws=ln.split(' ');const tw=ws.reduce((a,x)=>a+M.w(x,size,key),0);const gap=(W-tw)/(ws.length-1);let x=left;ws.forEach(wd=>{pg.ops.push({t:'text',x,y:y+size*.8,text:lhWin(wd),size,key,color:'#111111'});x+=M.w(wd,size,key)+gap;});}
+      else{const w=M.w(ln,size,key);text(ln,o.align==='right'?right-w:left,o);}y+=lead;});}};
+  newPage();
+  if(L.ref){block(L.ref);}
+  if(L.date){block(L.date,{align:L.dateRight?'right':'left'});y+=lead*.6;}
+  if(L.to){block(L.to);y+=lead*.6;}
+  if(L.salutation){block(L.salutation);y+=lead*.4;}
+  if(L.subject){block(L.subject,{bold:true});y+=lead*.4;}
+  const paras=String(L.body||'').replace(/\r/g,'').split(/\n{2,}/);
+  paras.forEach((p,k)=>{block(p.replace(/\n/g,' \n').split('\n').map(s=>s.trim()).join('\n'),{justify:L.justify});if(k<paras.length-1)y+=lead*.55;});
+  y+=lead*.7;
+  if(L.closing){need(lead*4);block(L.closing);}
+  if(L.sig?.src){const sh=44,sw=Math.min(180,sh*L.sig.w/L.sig.h);need(sh+4);pg.ops.push({t:'img',x:left-2,y:y+2,w:sw,h:sh,src:L.sig.src});y+=sh+6;}else if(L.closing)y+=lead*1.6;
+  if(L.signName)block(L.signName,{bold:true});if(L.signTitle)block(L.signTitle);
+  if(L.enclosure){y+=lead*.6;block(L.enclosure,{italic:true});}
+  if(pages.length>1)pages.forEach((p,k)=>{const s=`Page ${k+1} of ${pages.length}`;p.ops.push({t:'text',x:right-M.w(s,7.5,'sans'),y:PH-22,text:s,size:7.5,key:'sans',color:'#8a93a2'});});
+  return pages;
+}
+
+// ── Backends ──
+function lhLoadImg(src){if(LH.imgCache[src])return LH.imgCache[src];return LH.imgCache[src]=new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.onerror=()=>r(null);im.src=src;});}
+const LH_CSSFONT={sans:'Helvetica, Arial, "Liberation Sans", sans-serif',serif:'"Times New Roman", Times, "Liberation Serif", serif'};
+async function lhDrawCanvas(cv,ops,width){
+  const dpr=Math.min(2,devicePixelRatio||1),k=width/PW*dpr;cv.width=Math.round(PW*k);cv.height=Math.round(PH*k);const c=cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,cv.width,cv.height);
+  for(const o of ops){
+    if(o.t==='img'){const im=await lhLoadImg(o.src);if(im)c.drawImage(im,o.x*k,o.y*k,o.w*k,o.h*k);}
+    else if(o.t==='rect'){c.fillStyle=o.color;c.fillRect(o.x*k,o.y*k,o.w*k,o.h*k);}
+    else if(o.t==='line'){c.strokeStyle=o.color;c.lineWidth=o.w*k;c.beginPath();c.moveTo(o.x1*k,o.y1*k);c.lineTo(o.x2*k,o.y2*k);c.stroke();}
+    else if(o.t==='text'){const ser=o.key.startsWith('serif'),b=o.key.endsWith('B'),it=o.key.endsWith('I');c.font=`${it?'italic ':''}${b?'bold ':''}${o.size*k}px ${LH_CSSFONT[ser?'serif':'sans']}`;c.fillStyle=o.color;c.textBaseline='alphabetic';c.fillText(o.text,o.x*k,o.y*k);}
+  }
+}
+async function lhPdf(pagesOps,{title}={}){
+  await waitForPdfLib();const{PDFDocument,StandardFonts:S,rgb}=PDFLib;const doc=await PDFDocument.create();if(title)doc.setTitle(title);doc.setCreator('PDF Tools — Letterhead');
+  const fonts={};const font=async key=>fonts[key]||(fonts[key]=await doc.embedFont({sans:S.Helvetica,sansB:S.HelveticaBold,sansI:S.HelveticaOblique,serif:S.TimesRoman,serifB:S.TimesRomanBold,serifI:S.TimesRomanItalic}[key]));
+  const imgs={};const img=async src=>{if(imgs[src])return imgs[src];const bytes=Uint8Array.from(atob(src.split(',')[1]),ch=>ch.charCodeAt(0));return imgs[src]=src.startsWith('data:image/png')?await doc.embedPng(bytes):await doc.embedJpg(bytes);};
+  const col=h=>{const[r,g,b]=hex2rgb(h);return rgb(r,g,b);};
+  for(const ops of pagesOps){const p=doc.addPage([PW,PH]);
+    for(const o of ops){
+      if(o.t==='img')p.drawImage(await img(o.src),{x:o.x,y:PH-o.y-o.h,width:o.w,height:o.h});
+      else if(o.t==='rect')p.drawRectangle({x:o.x,y:PH-o.y-o.h,width:o.w,height:o.h,color:col(o.color)});
+      else if(o.t==='line')p.drawLine({start:{x:o.x1,y:PH-o.y1},end:{x:o.x2,y:PH-o.y2},thickness:o.w,color:col(o.color)});
+      else if(o.t==='text')p.drawText(o.text,{x:o.x,y:PH-o.y,size:o.size,font:await font(o.key),color:col(o.color)});
+    }}
+  return new Blob([await doc.save()],{type:'application/pdf'});
+}
+
+// ── Storage ──
+async function lhLoad(){try{LH.list=(await KV.get('letterheads'))||[];}catch{LH.list=[];}return LH.list;}
+async function lhStore(){await KV.set('letterheads',LH.list);}
+async function lhUpsert(lh){lh.updated=Date.now();const i=LH.list.findIndex(x=>x.id===lh.id);if(i>=0)LH.list[i]=lh;else LH.list.unshift(lh);await lhStore();}
+
+// ── UI shell ──
+(function buildLH(){
+  const el=document.createElement('div');el.id='lh';
+  el.innerHTML=`<div class="lh-top"><button class="ibtn ghost" id="lh-back">${ic('left')}</button><div class="ttl" id="lh-title">Letterheads</div><div id="lh-topact"></div></div><div class="lh-body" id="lh-body"></div>`;
+  document.body.appendChild(el);
+  el.querySelector('#lh-back').onclick=()=>{if(LH.view==='home')lhExit();else lhHome();};
+})();
+function openLetterhead(fromRoute){document.getElementById('lh').classList.add('on');document.body.classList.add('in-overlay');currentToolId='letterhead';if(!fromRoute&&location.hash!=='#letterhead')location.hash='#letterhead';LH.open=true;if(!LH.keepView)lhHome();LH.keepView=false;}
+function closeLetterheadUI(){if(!LH.open)return;LH.open=false;document.getElementById('lh').classList.remove('on');document.body.classList.remove('in-overlay');}
+function lhExit(){if(location.hash==='#letterhead')history.length>1?history.back():location.replace('#');else closeLetterheadUI();}
+const lhB=()=>document.getElementById('lh-body');
+function lhTop(title,actHTML=''){document.getElementById('lh-title').textContent=title;document.getElementById('lh-topact').innerHTML=actHTML;}
+
+// ── Home: letterheads + recent letters ──
+async function lhHome(){
+  LH.view='home';lhTop('Letterheads & letters');await lhLoad();const M=await lhMetrics();
+  const letters=(await LIB.list().catch(()=>[])).filter(m=>m.letter).slice(0,12);
+  lhB().innerHTML=`<div class="lh-wrap">
+    <p class="lh-sub" style="margin:0 0 14px">Design a letterhead for your business, or upload one you already have. Then write letters on it — each letter is saved as a PDF in My Files and can be re-opened and edited any time.</p>
+    <div class="lh-h">Your letterheads</div>
+    <div class="lh-list" id="lh-list">
+      <div class="lh-new" id="lh-new">${ic('plus')}Design a letterhead</div>
+      <div class="lh-new" id="lh-up">${ic('upload')}Upload letterhead<br><span style="font-weight:500;font-size:11px;color:var(--text3)">Image or PDF</span></div>
+      ${LH.list.map(l=>`<div class="lh-item" data-id="${l.id}"><div class="th"><canvas></canvas></div><div class="nm">${esc(l.name)}</div><div class="mt">${l.kind==='image'?'Uploaded':LH_TEMPLATES.find(t=>t[0]===l.design.template)?.[1]||'Design'} · ${relTime(l.updated||l.created)}</div></div>`).join('')}
+    </div>
+    ${letters.length?`<div class="lh-h" style="margin-top:26px">Recent letters</div><div class="flist" style="padding:0">${letters.map(m=>`<div class="fitem" data-lib="${m.id}"><div class="fthumb">${thumbHTML(m)}</div><div class="finfo"><div class="fname">${esc(m.name)}</div><div class="fmeta">${relTime(m.modified)} · tap to edit</div></div><button class="ibtn ghost" data-open="${m.id}" title="View">${ic('eye','ic-sm')}</button></div>`).join('')}</div>`:''}
+  </div>`;
+  lhB().querySelector('#lh-new').onclick=()=>lhDesign(null);
+  lhB().querySelector('#lh-up').onclick=lhUpload;
+  lhB().querySelectorAll('.lh-item').forEach(async it=>{const l=LH.list.find(x=>x.id===it.dataset.id);it.onclick=()=>lhItemMenu(l);const H=lhOps(l,M);lhDrawCanvas(it.querySelector('canvas'),H.ops,170);});
+  lhB().querySelectorAll('[data-lib]').forEach(r=>r.onclick=e=>{if(e.target.closest('[data-open]'))return;lhEditLetterFromLib(r.dataset.lib);});
+  lhB().querySelectorAll('[data-open]').forEach(b=>b.onclick=async e=>{e.stopPropagation();closeLetterheadUI();openReader({file:await LIB.file(b.dataset.open),libId:b.dataset.open});});
+}
+function lhItemMenu(l){
+  const s=openSheet(`<h3>${esc(l.name)}</h3><p class="sub">${l.kind==='image'?'Uploaded letterhead':'Designed letterhead'}</p>
+    <button class="menu-item" data-a="write">${ic('pencil')}Write a letter</button>
+    <button class="menu-item" data-a="blank">${ic('edittext')}Blank page in the PDF editor</button>
+    <button class="menu-item" data-a="edit">${ic(l.kind==='image'?'crop':'palette')}${l.kind==='image'?'Adjust writing area':'Edit design'}</button>
+    <button class="menu-item" data-a="pdf">${ic('download')}Save letterhead as PDF</button>
+    <button class="menu-item" data-a="dup">${ic('copy')}Duplicate</button>
+    <button class="menu-item" data-a="rename">${ic('type')}Rename</button>
+    <button class="menu-item danger" data-a="del">${ic('trash')}Delete</button>`);
+  s.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{const a=b.dataset.a;closeSheet();await new Promise(r=>setTimeout(r,220));
+    if(a==='write')lhWrite({lhId:l.id});
+    if(a==='edit')l.kind==='image'?lhImageSetup(l):lhDesign(l);
+    if(a==='blank'||a==='pdf'){const M=await lhMetrics();const blob=await lhPdf([lhOps(l,M).ops],{title:l.name});const name=l.name.replace(/[\\/:*?"<>|]/g,'')+(a==='blank'?' - blank':'')+'.pdf';
+      if(a==='pdf'){dl(blob,name);return;}const id=await LIB.add(blob,name,{source:'letterhead'});closeLetterheadUI();RD.pendingMode='edit';openReader({file:new File([blob],name,{type:'application/pdf'}),libId:id});setTimeout(()=>{if(RD.cat)rdSetTool('text');},1200);}
+    if(a==='dup'){const c=JSON.parse(JSON.stringify(l));c.id=lhUid();c.name=l.name+' (copy)';c.created=Date.now();await lhUpsert(c);lhHome();}
+    if(a==='rename'){const n=await promptSheet('Rename letterhead',l.name,'Rename');if(n){l.name=n;await lhUpsert(l);lhHome();}}
+    if(a==='del'&&await confirmSheet('Delete letterhead?',`“${l.name}” will be removed. Letters you already saved are kept.`)){LH.list=LH.list.filter(x=>x.id!==l.id);await lhStore();lhHome();}
+  });
+}
+
+// ── Designer ──
+async function lhDesign(existing){
+  LH.view='design';const lh=existing?JSON.parse(JSON.stringify(existing)):{id:lhUid(),kind:'design',name:'My letterhead',created:Date.now(),design:{template:'modern',color:'#0b3d91',font:'sans',name:'',tagline:'',address:'',phone:'',email:'',web:'',extra:'',logo:null}};
+  LH.cur=lh;const d=lh.design;const M=await lhMetrics();
+  lhTop(existing?'Edit letterhead':'New letterhead');
+  const f=(k,l,ph,ta)=>`<div class="lh-f"><label>${l}</label>${ta?`<textarea data-k="${k}" rows="3" placeholder="${ph}">${esc(d[k])}</textarea>`:`<input type="text" data-k="${k}" placeholder="${ph}" value="${esc(d[k])}"/>`}</div>`;
+  lhB().innerHTML=`<div class="lh-wrap"><div class="seg lh-seg"><button class="on" data-p="0" style="flex:1">Edit</button><button data-p="1" style="flex:1">Preview</button></div>
+   <div class="lh-grid" id="lh-grid"><div class="lh-form">
+    <div class="lh-card"><h4>Style</h4><div class="lh-tpls" id="lh-tpls">${LH_TEMPLATES.map(([k,l])=>`<button class="lh-tpl ${d.template===k?'on':''}" data-t="${k}"><canvas></canvas><span>${l}</span></button>`).join('')}</div>
+      <div class="lh-f" style="margin-top:12px"><label>Brand colour</label><div class="lh-colors" id="lh-colors">${LH_COLORS.map(c=>`<button class="pc ${d.color===c?'on':''}" data-c="${c}" style="background:${c}"></button>`).join('')}<input type="color" id="lh-cc" value="${d.color}" title="Custom colour"/></div></div>
+      <div class="lh-f"><label>Font</label><div class="seg" id="lh-font" style="width:max-content"><button data-f="sans" class="${d.font!=='serif'?'on':''}">Modern (sans)</button><button data-f="serif" class="${d.font==='serif'?'on':''}">Classic (serif)</button></div></div></div>
+    <div class="lh-card"><h4>Logo</h4><div class="lh-logo"><div class="lg" id="lh-lg">${d.logo?`<img src="${d.logo.src}"/>`:`<span style="font-size:11px;color:#999">No logo</span>`}</div><button class="btn btn-ghost" id="lh-logo-up" style="padding:8px 14px!important">${d.logo?'Change':'Upload logo'}</button>${d.logo?`<button class="btn btn-ghost" id="lh-logo-rm" style="padding:8px 12px!important">Remove</button>`:''}</div>
+      <p class="lh-sub" style="margin:8px 0 0">PNG with a transparent background looks best. White backgrounds are removed automatically.</p></div>
+    <div class="lh-card"><h4>Company details</h4>${f('name','Company name','Acme Holdings (Pty) Ltd')}${f('tagline','Tagline (optional)','Quality you can trust')}${f('address','Address','12 Main Road\\nSandton, Johannesburg 2196',true)}
+      <div class="lh-2">${f('phone','Phone','+27 11 555 0100')}${f('email','Email','info@acme.co.za')}</div>${f('web','Website','www.acme.co.za')}${f('extra','Footer line (registration, VAT, directors…)','Reg. No. 2020/123456/07 · VAT No. 4123456789')}</div>
+    <div class="lh-card"><h4>Name</h4>${`<div class="lh-f"><label>Save as</label><input type="text" id="lh-name" value="${esc(lh.name)}"/></div>`}</div>
+    <div class="lh-actions"><button class="btn btn-ghost" id="lh-save">Save letterhead</button><button class="btn btn-primary" id="lh-save-write">Save &amp; write letter</button></div>
+   </div><div class="lh-prev-col"><div class="lh-pages" id="lh-prev"></div></div></div></div>`;
+  const B=lhB();const grid=B.querySelector('#lh-grid');
+  B.querySelectorAll('.lh-seg button').forEach(b=>b.onclick=()=>{B.querySelectorAll('.lh-seg button').forEach(x=>x.classList.toggle('on',x===b));grid.classList.toggle('show-prev',b.dataset.p==='1');});
+  let t;const upd=()=>{clearTimeout(t);t=setTimeout(async()=>{const H=lhDesignOps(d,M);const box=B.querySelector('#lh-prev');let cv=box.querySelector('canvas');if(!cv){cv=document.createElement('canvas');box.appendChild(cv);}await lhDrawCanvas(cv,[...H.ops,...lhSampleOps(H,M,d.font==='serif'||d.template==='elegant')],Math.min(640,box.clientWidth||600));
+    B.querySelectorAll('.lh-tpl').forEach(async b=>{const dd={...d,template:b.dataset.t};const h=lhDesignOps(dd,M);await lhDrawCanvas(b.querySelector('canvas'),h.ops,130);});},120);};
+  B.querySelectorAll('[data-k]').forEach(i=>i.oninput=()=>{d[i.dataset.k]=i.value;upd();});
+  B.querySelectorAll('.lh-tpl').forEach(b=>b.onclick=()=>{d.template=b.dataset.t;B.querySelectorAll('.lh-tpl').forEach(x=>x.classList.toggle('on',x===b));upd();});
+  const setColor=c=>{d.color=c;B.querySelectorAll('#lh-colors .pc').forEach(x=>x.classList.toggle('on',x.dataset.c===c));B.querySelector('#lh-cc').value=c;upd();};
+  B.querySelectorAll('#lh-colors .pc').forEach(b=>b.onclick=()=>setColor(b.dataset.c));B.querySelector('#lh-cc').oninput=e=>setColor(e.target.value);
+  B.querySelectorAll('#lh-font button').forEach(b=>b.onclick=()=>{d.font=b.dataset.f;B.querySelectorAll('#lh-font button').forEach(x=>x.classList.toggle('on',x===b));upd();});
+  B.querySelector('#lh-logo-up').onclick=()=>{const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=async()=>{const fl=inp.files[0];if(!fl)return;d.logo=await lhPrepLogo(fl);lh.design=d;lhDesign(lh).then(()=>{});};inp.click();};
+  B.querySelector('#lh-logo-rm')?.addEventListener('click',()=>{d.logo=null;lhDesign(lh);});
+  B.querySelector('#lh-name').oninput=e=>{lh.name=e.target.value;};
+  const save=async()=>{if(!lh.name.trim()||(lh.name==='My letterhead'&&d.name))lh.name=d.name||'My letterhead';await lhUpsert(lh);toast(ic('check','ic-sm')+' Letterhead saved');};
+  B.querySelector('#lh-save').onclick=async()=>{await save();lhHome();};
+  B.querySelector('#lh-save-write').onclick=async()=>{await save();lhWrite({lhId:lh.id});};
+  upd();
+}
+function lhSampleOps(H,M,ser){// faint placeholder lines in the writing area so the preview reads as a letter
+  const ops=[];const w=H.right-H.left;let y=H.top+8;const lines=[.32,0,.55,0,.96,.99,.97,.62,0,.98,.95,.99,.7,0,.3];
+  for(const l of lines){if(l)ops.push({t:'rect',x:H.left,y,w:w*l,h:4,color:'#e7e9ee'});y+=15;}return ops;}
+async function lhPrepLogo(file){
+  const src=await rdImageToDataURL(file,900);const im=await lhLoadImg(src);const cv=Object.assign(document.createElement('canvas'),{width:im.width,height:im.height});const c=cv.getContext('2d',{willReadFrequently:true});c.drawImage(im,0,0);
+  const id=c.getImageData(0,0,cv.width,cv.height),dd=id.data;let opaqueWhite=0,n=0,transparent=0;
+  for(let y=0;y<cv.height;y++)for(let x=0;x<cv.width;x+=Math.max(1,cv.width>>6)){if(x>2&&x<cv.width-3&&y>2&&y<cv.height-3)continue;const i=(y*cv.width+x)*4;n++;if(dd[i+3]<20)transparent++;else if(dd[i]>235&&dd[i+1]>235&&dd[i+2]>235)opaqueWhite++;}
+  if(transparent<n*.5&&opaqueWhite>n*.6){for(let i=0;i<dd.length;i+=4){const m=Math.min(dd[i],dd[i+1],dd[i+2]);if(m>245)dd[i+3]=0;else if(m>225)dd[i+3]=Math.round((245-m)/20*255);}c.putImageData(id,0,0);}
+  const out=sigTrim(cv,2)||cv.toDataURL('image/png');const o=await lhLoadImg(out);return{src:out,w:o.width,h:o.height};
+}
+
+// ── Upload a ready-made letterhead (image or PDF) ──
+function lhUpload(){const inp=document.createElement('input');inp.type='file';inp.accept='image/*,.pdf,application/pdf';inp.onchange=async()=>{const f=inp.files[0];if(!f)return;
+  toast('Reading letterhead…',1500);
+  try{let src;if(f.type==='application/pdf'||/\.pdf$/i.test(f.name)){await waitForPdfJs();const doc=await pdfjsLib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;const pg=await doc.getPage(1);const v1=pg.getViewport({scale:1});const vp=pg.getViewport({scale:1800/v1.width});const cv=Object.assign(document.createElement('canvas'),{width:Math.round(vp.width),height:Math.round(vp.height)});const c=cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,cv.width,cv.height);await pg.render({canvasContext:c,viewport:vp}).promise;src=cv.toDataURL('image/jpeg',.92);}
+    else src=await rdImageToDataURL(f,1800);
+    const im=await lhLoadImg(src);const ratio=im.height/im.width;const mode=ratio>1.2&&ratio<1.7?'page':'header';
+    const lh={id:lhUid(),kind:'image',name:f.name.replace(/\.[^.]+$/,''),created:Date.now(),image:{src,w:im.width,h:im.height,mode,left:60}};
+    Object.assign(lh.image,lhDetectArea(im,mode));lhImageSetup(lh,true);
+  }catch(e){toast('Could not read that file: '+esc(e.message),4000);}};inp.click();}
+function lhDetectArea(im,mode){
+  // find the largest blank horizontal band → that's where the letter goes
+  const W=200,H=Math.round(W*im.height/im.width);const cv=Object.assign(document.createElement('canvas'),{width:W,height:H});const c=cv.getContext('2d',{willReadFrequently:true});c.drawImage(im,0,0,W,H);const d=c.getImageData(0,0,W,H).data;
+  const ink=new Uint8Array(H);for(let y=0;y<H;y++){let n=0;for(let x=Math.round(W*.04);x<W*.96;x++){const i=(y*W+x)*4;if(.299*d[i]+.587*d[i+1]+.114*d[i+2]<228)n++;}ink[y]=n>1?1:0;}
+  if(mode!=='page'){let last=0;for(let y=0;y<H;y++)if(ink[y])last=y;const hPt=PW*im.height/im.width;return{top:Math.min(hPt+26,PH*.4),bottom:PH-56};}
+  let best=[0,0],s=-1;for(let y=0;y<=H;y++){if(y<H&&!ink[y]){if(s<0)s=y;}else if(s>=0){if(y-s>best[1]-best[0])best=[s,y];s=-1;}}
+  const k=PH/H;let top=best[0]*k+18,bottom=best[1]*k-14;if(bottom-top<PH*.3){top=150;bottom=PH-80;}
+  return{top:Math.round(top),bottom:Math.round(bottom)};
+}
+async function lhImageSetup(lh,isNew){
+  LH.view='image';LH.cur=lh;const im=lh.image;lhTop(isNew?'Set up letterhead':'Adjust writing area');const M=await lhMetrics();
+  lhB().innerHTML=`<div class="lh-wrap"><div class="seg lh-seg"><button class="on" data-p="0" style="flex:1">Edit</button><button data-p="1" style="flex:1">Preview</button></div><div class="lh-grid" id="lh-grid"><div class="lh-form">
+    <div class="lh-card"><h4>How should it be used?</h4><div class="seg" id="lh-mode" style="width:max-content;margin-bottom:8px"><button data-m="page" class="${im.mode==='page'?'on':''}">Full page</button><button data-m="header" class="${im.mode!=='page'?'on':''}">Header only</button></div>
+      <p class="lh-sub" style="margin:4px 0 0">${im.mode==='page'?'The image covers the whole page. The letter is written inside the blue area.':'The image is placed across the top. You can add a separate footer image.'}</p></div>
+    <div class="lh-card"><h4>Writing area</h4><p class="lh-sub" style="margin:-4px 0 10px">Detected automatically — adjust if the letter overlaps the design.</p>
+      <div class="lh-f"><label>Start below (from top)</label><div class="lh-range"><input type="range" id="lh-top" min="20" max="500" value="${Math.round(im.top)}"/><span id="lh-topv"></span></div></div>
+      <div class="lh-f"><label>Stop above (from bottom)</label><div class="lh-range"><input type="range" id="lh-bot" min="20" max="400" value="${Math.round(PH-im.bottom)}"/><span id="lh-botv"></span></div></div>
+      <div class="lh-f"><label>Side margins</label><div class="lh-range"><input type="range" id="lh-side" min="24" max="120" value="${im.left??60}"/><span id="lh-sidev"></span></div></div></div>
+    ${im.mode!=='page'?`<div class="lh-card"><h4>Footer image (optional)</h4><div class="lh-logo"><div class="lg" style="width:120px">${im.footer?`<img src="${im.footer.src}"/>`:'<span style="font-size:11px;color:#999">None</span>'}</div><button class="btn btn-ghost" id="lh-ft" style="padding:8px 14px!important">${im.footer?'Change':'Add footer'}</button>${im.footer?`<button class="btn btn-ghost" id="lh-ftrm" style="padding:8px 12px!important">Remove</button>`:''}</div></div>`:''}
+    <div class="lh-card"><h4>Name</h4><div class="lh-f"><input type="text" id="lh-name" value="${esc(lh.name)}"/></div></div>
+    <div class="lh-actions"><button class="btn btn-ghost" id="lh-save">Save letterhead</button><button class="btn btn-primary" id="lh-save-write">Save &amp; write letter</button></div>
+  </div><div class="lh-prev-col"><div class="lh-pages" id="lh-prev"></div></div></div></div>`;
+  const B=lhB(),grid=B.querySelector('#lh-grid');
+  B.querySelectorAll('.lh-seg button').forEach(b=>b.onclick=()=>{B.querySelectorAll('.lh-seg button').forEach(x=>x.classList.toggle('on',x===b));grid.classList.toggle('show-prev',b.dataset.p==='1');});
+  let t;const upd=()=>{B.querySelector('#lh-topv').textContent=Math.round(im.top/72*25.4)+' mm';B.querySelector('#lh-botv').textContent=Math.round((PH-im.bottom)/72*25.4)+' mm';B.querySelector('#lh-sidev').textContent=Math.round((im.left??60)/72*25.4)+' mm';
+    clearTimeout(t);t=setTimeout(async()=>{const H=lhImageOps(im);const box=B.querySelector('#lh-prev');let cv=box.querySelector('canvas');if(!cv){cv=document.createElement('canvas');box.appendChild(cv);}
+      await lhDrawCanvas(cv,[...H.ops,{t:'rect',x:H.left,y:H.top,w:H.right-H.left,h:H.bottom-H.top,color:'rgba(31,111,235,.12)'},...lhSampleOps(H,M)],Math.min(640,box.clientWidth||600));},80);};
+  B.querySelector('#lh-top').oninput=e=>{im.top=+e.target.value;upd();};B.querySelector('#lh-bot').oninput=e=>{im.bottom=PH-+e.target.value;upd();};B.querySelector('#lh-side').oninput=e=>{im.left=+e.target.value;upd();};
+  B.querySelectorAll('#lh-mode button').forEach(b=>b.onclick=async()=>{im.mode=b.dataset.m;Object.assign(im,lhDetectArea(await lhLoadImg(im.src),im.mode));lhImageSetup(lh,isNew);});
+  B.querySelector('#lh-ft')?.addEventListener('click',()=>{const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=async()=>{const f=inp.files[0];if(!f)return;const src=await rdImageToDataURL(f,1800);const i2=await lhLoadImg(src);im.footer={src,w:i2.width,h:i2.height};lhImageSetup(lh,isNew);};inp.click();});
+  B.querySelector('#lh-ftrm')?.addEventListener('click',()=>{im.footer=null;lhImageSetup(lh,isNew);});
+  B.querySelector('#lh-name').oninput=e=>{lh.name=e.target.value;};
+  B.querySelector('#lh-save').onclick=async()=>{await lhUpsert(lh);toast(ic('check','ic-sm')+' Letterhead saved');lhHome();};
+  B.querySelector('#lh-save-write').onclick=async()=>{await lhUpsert(lh);lhWrite({lhId:lh.id});};
+  upd();
+}
+
+// ── Letter writer ──
+async function lhWrite({lhId,project,libId}={}){
+  await lhLoad();const M=await lhMetrics();LH.view='write';
+  let lh=project?.lh||LH.list.find(x=>x.id===lhId);if(!lh&&LH.list.length)lh=LH.list[0];
+  if(!lh){toast('Create or upload a letterhead first');return lhHome();}
+  const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const L=project?JSON.parse(JSON.stringify(project.letter)):{title:'Letter',date:today,dateRight:false,ref:'',to:'',salutation:'Dear Sir/Madam',subject:'',body:'',closing:'Yours sincerely,',signName:lh.design?.name?'':'',signTitle:'',enclosure:'',sig:null,font:lh.design?.font||'sans',size:11,justify:false,every:true};
+  LH.letter={lh:JSON.parse(JSON.stringify(lh)),letter:L,libId:libId||null};
+  lhTop(libId?'Edit letter':'Write a letter');
+  const f=(k,l,ph,rows)=>`<div class="lh-f"><label>${l}</label>${rows?`<textarea data-k="${k}" rows="${rows}" placeholder="${ph}">${esc(L[k])}</textarea>`:`<input type="text" data-k="${k}" placeholder="${ph}" value="${esc(L[k])}"/>`}</div>`;
+  const sigs=sigList();
+  lhB().innerHTML=`<div class="lh-wrap"><div class="seg lh-seg"><button class="on" data-p="0" style="flex:1">Write</button><button data-p="1" style="flex:1">Preview</button></div><div class="lh-grid" id="lh-grid"><div class="lh-form">
+    <div class="lh-card"><h4>Letterhead</h4><div class="lh-f"><select id="lh-pick">${(LH.list.some(x=>x.id===lh.id)?LH.list:[lh,...LH.list]).map(x=>`<option value="${x.id}" ${x.id===lh.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
+      <label class="checkbox-row" style="padding:0"><input type="checkbox" id="lh-every" ${L.every!==false?'checked':''}/> <span style="font-size:13px">Letterhead on every page (otherwise first page only)</span></label></div>
+    <div class="lh-card"><h4>Details</h4><div class="lh-2">${f('date','Date','')}${f('ref','Reference (optional)','Ref: INV-2041')}</div>
+      <label class="checkbox-row" style="padding:0 0 8px"><input type="checkbox" id="lh-dr" ${L.dateRight?'checked':''}/> <span style="font-size:13px">Align date to the right</span></label>
+      ${f('to','To (recipient name and address)','Ms N. Dlamini\\nHR Manager\\nGlobex Ltd\\n45 Long Street, Cape Town',4)}</div>
+    <div class="lh-card"><h4>Letter</h4>${f('salutation','Greeting','Dear Ms Dlamini,')}${f('subject','Subject (optional, printed in bold)','RE: Offer of employment')}
+      ${f('body','Body — leave an empty line between paragraphs','Write your letter here…',12)}${f('closing','Closing','Yours sincerely,')}</div>
+    <div class="lh-card"><h4>Sign-off</h4><div class="lh-f"><label>Signature</label><div class="lh-sigs" id="lh-sigs"><div class="lh-sig ${!L.sig?'on':''}" data-s="-1">None</div>${sigs.map((s,k)=>`<div class="lh-sig ${L.sig?.src===s?'on':''}" data-s="${k}"><img src="${s}"/></div>`).join('')}<div class="lh-sig" data-s="new">${ic('plus','ic-sm')} New</div></div></div>
+      <div class="lh-2">${f('signName','Name','Thabo Nkosi')}${f('signTitle','Title / position','Managing Director')}</div>${f('enclosure','Enclosures (optional)','Encl: Contract of employment')}</div>
+    <div class="lh-card"><h4>Text style</h4><div class="lh-2"><div class="lh-f"><label>Font</label><select id="lh-font"><option value="sans" ${L.font!=='serif'?'selected':''}>Helvetica (modern)</option><option value="serif" ${L.font==='serif'?'selected':''}>Times (classic)</option></select></div>
+      <div class="lh-f"><label>Size</label><select id="lh-size">${[10,10.5,11,11.5,12,13].map(s=>`<option ${+L.size===s?'selected':''}>${s}</option>`).join('')}</select></div></div>
+      <label class="checkbox-row" style="padding:0"><input type="checkbox" id="lh-just" ${L.justify?'checked':''}/> <span style="font-size:13px">Justify paragraphs</span></label></div>
+    <div class="lh-card"><h4>File name</h4><div class="fname-row" style="margin:0"><input type="text" class="fname-inp" id="lh-fname" value="${esc(L.title||'Letter')}"/><span class="fname-ext">.pdf</span></div></div>
+    <div class="lh-actions"><button class="btn btn-ghost" id="lh-ed">Open in editor</button><button class="btn btn-primary" id="lh-pdf">${libId?'Save changes':'Save PDF'}</button></div>
+  </div><div class="lh-prev-col"><div class="lh-pages" id="lh-prev"></div></div></div></div>`;
+  const B=lhB(),grid=B.querySelector('#lh-grid');
+  B.querySelectorAll('.lh-seg button').forEach(b=>b.onclick=()=>{B.querySelectorAll('.lh-seg button').forEach(x=>x.classList.toggle('on',x===b));grid.classList.toggle('show-prev',b.dataset.p==='1');if(b.dataset.p==='1')upd(true);});
+  let t;const upd=now=>{clearTimeout(t);t=setTimeout(async()=>{const pages=lhLetterPages(LH.letter.lh,L,M);const box=B.querySelector('#lh-prev');const w=Math.min(640,box.clientWidth||600);
+    while(box.children.length>pages.length)box.lastChild.remove();while(box.children.length<pages.length)box.appendChild(document.createElement('canvas'));
+    for(let k=0;k<pages.length;k++)await lhDrawCanvas(box.children[k],pages[k].ops,w);},now?0:180);};
+  B.querySelectorAll('[data-k]').forEach(i=>i.oninput=()=>{L[i.dataset.k]=i.value;upd();});
+  B.querySelector('#lh-pick').onchange=e=>{const n=LH.list.find(x=>x.id===e.target.value);if(n){LH.letter.lh=JSON.parse(JSON.stringify(n));if(!project)L.font=n.design?.font||L.font;}upd();};
+  B.querySelector('#lh-every').onchange=e=>{L.every=e.target.checked;upd();};B.querySelector('#lh-dr').onchange=e=>{L.dateRight=e.target.checked;upd();};
+  B.querySelector('#lh-just').onchange=e=>{L.justify=e.target.checked;upd();};B.querySelector('#lh-font').onchange=e=>{L.font=e.target.value;upd();};B.querySelector('#lh-size').onchange=e=>{L.size=+e.target.value;upd();};
+  B.querySelector('#lh-fname').oninput=e=>{L.title=e.target.value;};
+  B.querySelectorAll('.lh-sig').forEach(b=>b.onclick=async()=>{const s=b.dataset.s;
+    if(s==='new'){rdSignatureSheet(async src=>{const im=await lhLoadImg(src);L.sig={src,w:im.width,h:im.height};LH.letter.letter=L;const keep={...LH.letter};lhWrite({project:{lh:keep.lh,letter:L},libId:keep.libId});});return;}
+    if(s==='-1')L.sig=null;else{const src=sigList()[+s];const im=await lhLoadImg(src);L.sig={src,w:im.width,h:im.height};}
+    B.querySelectorAll('.lh-sig').forEach(x=>x.classList.toggle('on',x===b));upd();});
+  B.querySelector('#lh-pdf').onclick=()=>lhSaveLetter();
+  B.querySelector('#lh-ed').onclick=()=>lhSaveLetter({openEditor:true});
+  upd(true);
+}
+async function lhSaveLetter({openEditor=false}={}){
+  const P=LH.letter;const M=await lhMetrics();const L=P.letter;if(!L.body.trim()&&!L.to.trim()&&!openEditor){toast('Write something in the letter first');return;}
+  if((!L.title||L.title==='Letter')&&L.to.trim()){L.title='Letter - '+L.to.trim().split('\n')[0].replace(/[,.]$/,'').slice(0,40);const fi=lhB().querySelector('#lh-fname');if(fi)fi.value=L.title;}
+  const pages=lhLetterPages(P.lh,L,M);const name=(L.title||'Letter').replace(/[\\/:*?"<>|]/g,'').replace(/\.pdf$/i,'')+'.pdf';
+  const blob=await lhPdf(pages.map(p=>p.ops),{title:L.title||L.subject||'Letter'});const meta={letter:{lh:P.lh,letter:L}};
+  let id=P.libId;
+  if(id&&await LIB.get(id)){await LIB.replaceBlob(id,blob);await LIB.update(id,{name,...meta});}
+  else{id=await LIB.add(blob,name,{source:'letterhead',...meta});P.libId=id;}
+  if(openEditor){closeLetterheadUI();RD.pendingMode='edit';openReader({file:new File([blob],name,{type:'application/pdf'}),libId:id});return;}
+  lhB().querySelector('#lh-pdf').textContent='Save changes';lhTop('Edit letter');
+  _outBatch.push({blob,name,p:Promise.resolve(id)});showResultSheet();
+}
+async function lhEditLetterFromLib(id){const m=await LIB.get(id);if(!m?.letter)return toast('This PDF wasn\'t made with the letter writer');
+  if(!LH.open){LH.keepView=true;openLetterhead();}await lhWrite({project:m.letter,libId:id});}
 
 // ══════════════════════════════════════════════════════
 // PRO SCANNER — camera → auto crop → filters → PDF

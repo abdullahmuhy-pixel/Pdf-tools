@@ -1,6 +1,6 @@
 # PDF Tools
 
-**A PDF editor, a PDF reader, a document scanner and 37 PDF tools in one HTML file — no uploads, no server, no account.**
+**A PDF editor, letterhead & letter writer, a PDF reader, a document scanner and 38 PDF tools in one HTML file — no uploads, no server, no account.**
 
 Everything runs in your browser. Your files never leave your device.
 
@@ -18,6 +18,13 @@ Everything runs in your browser. Your files never leave your device.
 - Everything can be selected, moved, resized, recoloured, duplicated and deleted, with full **undo / redo**
 - **Pages** — rotate, insert blank, duplicate, move up/down, extract or delete pages
 - Works on rotated pages; keyboard shortcuts on desktop (Ctrl+Z/Y/S/D, Delete, arrow keys)
+
+### 🏢 Letterheads & Letters
+- **Design a letterhead** for any business: 6 styles (Classic, Modern, Bold band, Minimal, Sidebar, Elegant), logo (white backgrounds removed automatically), company name, tagline, address, phone, email, website, registration/VAT footer, brand colour and font — with a live preview
+- **Upload a ready-made letterhead** (image or PDF). Full-page or header-only (with optional footer image); the writing area is **detected automatically** and can be fine-tuned
+- **Write letters** on any letterhead: date, reference, recipient, greeting, bold subject line, body (justify option), closing, saved signature, name and title, enclosures. Long letters flow onto more pages with page numbers; letterhead on every page or the first page only
+- Letters are saved as PDFs in My Files and **can be re-opened and edited any time** — or finished in the PDF editor
+- Blank letterhead page in the PDF editor, or download the letterhead itself as a PDF
 
 ### 📖 PDF Reader
 - Smooth continuous scrolling that stays fast on long documents (pages render only when near the screen)
@@ -54,7 +61,7 @@ Everything runs in your browser. Your files never leave your device.
 | Category | Tools |
 |---|---|
 | **Scan** | Document Scanner, QR Code (create/read), Enhance Image, Business Card, Study Cards |
-| **View & Edit** | PDF Reader, Edit PDF, Fill & Sign, Signature, Fill Forms, Watermark, Page Numbers, Header & Footer, Edit Metadata |
+| **View & Edit** | PDF Reader, Edit PDF, Fill & Sign, Letterhead & Letters, Signature, Fill Forms, Watermark, Page Numbers, Header & Footer, Edit Metadata |
 | **Convert** | Create PDF, Image → PDF, Text → PDF, HTML → PDF, Word → PDF, PDF → JPG, PDF → Text, PDF → Word, OCR |
 | **Organize** | Merge, Split, Organize pages, Rotate, Delete pages, Insert page, Crop, Resize pages |
 | **Optimize** | Compress, Grayscale, Flatten, Extract images |
