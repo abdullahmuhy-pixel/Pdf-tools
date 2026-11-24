@@ -1,15 +1,18 @@
 {
   "name": "PDF Tools",
   "short_name": "PDF Tools",
-  "description": "35 PDF tools in one file — merge, split, edit, sign, OCR, redact and more. No uploads. No server. 100% browser.",
-  "start_url": "./",
+  "description": "PDF reader, document scanner and 36 PDF tools — merge, split, sign, annotate, OCR, compress and more. No uploads. Works offline.",
+  "start_url": "./PDFTools.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#181818",
-  "theme_color": "#e05535",
+  "background_color": "#0e1014",
+  "theme_color": "#0e1014",
   "lang": "en",
-  "categories": ["productivity", "utilities"],
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
   "icons": [
     {
       "src": "./icon-192.png",
@@ -27,19 +30,37 @@
   "screenshots": [],
   "shortcuts": [
     {
+      "name": "Scan document",
+      "url": "./PDFTools.html#scan",
+      "description": "Scan with your camera"
+    },
+    {
+      "name": "My Files",
+      "url": "./PDFTools.html#files",
+      "description": "Your saved documents"
+    },
+    {
       "name": "Merge PDF",
-      "url": "./PDFTools.html#merge",
+      "url": "./PDFTools.html#tool/merge",
       "description": "Combine multiple PDFs"
     },
     {
       "name": "Sign PDF",
-      "url": "./PDFTools.html#editor",
-      "description": "Add signature to PDF"
-    },
-    {
-      "name": "OCR Text",
-      "url": "./PDFTools.html#ocr",
-      "description": "Extract text from scanned PDF"
+      "url": "./PDFTools.html#tool/editor",
+      "description": "Add a signature"
     }
-  ]
+  ],
+  "file_handlers": [
+    {
+      "action": "./PDFTools.html",
+      "accept": {
+        "application/pdf": [
+          ".pdf"
+        ]
+      }
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
 }

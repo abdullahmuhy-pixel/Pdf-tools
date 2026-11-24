@@ -4,7 +4,7 @@
 //     SW, install it, nuke the old cache, and pull fresh assets — guaranteed.
 //     Format: YYYYMMDD-N  (increment N if you push more than once per day)
 // ─────────────────────────────────────────────────────────────────────────────
-const BUILD = '20260529-1';
+const BUILD = '20261124-1';
 const CACHE  = `pdf-tools-${BUILD}`;
 
 // CDN libs to pre-cache (HTML files are intentionally NOT here — always fetched fresh)
@@ -61,9 +61,17 @@ self.addEventListener('fetch', e => {
     url.pathname.endsWith('/index.html') ||
     url.pathname.endsWith('/PDFTools.html')
   ) {
+    // Network-first so updates show immediately, but keep a copy for offline use.
     e.respondWith(
       fetch(request, { cache: 'no-store' })
-        .catch(() => caches.match('./PDFTools.html'))
+        .then(response => {
+          if (response.ok && url.pathname.endsWith('/PDFTools.html')) {
+            const copy = response.clone();
+            caches.open(CACHE).then(c => c.put('./PDFTools.html', copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match('./PDFTools.html', { ignoreSearch: true }))
     );
     return;
   }
